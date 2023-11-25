@@ -7,35 +7,94 @@
     android:background="#FCFFFF"
     tools:context=".MainActivity">
 
+
+    <ImageButton
+        android:id="@+id/ibtnPower"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@drawable/baseline_power_settings_new_24" />
+
     <LinearLayout
         android:layout_width="409dp"
-        android:layout_height="88dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp">
+        android:layout_height="525dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <SeekBar
-            android:id="@+id/skbVolume"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="2"
-            android:backgroundTint="#00BCD4"
-            android:hapticFeedbackEnabled="false"
-            android:max="100"
-            android:progress="50"
-            android:progressBackgroundTint="#F42626"
-            android:scrollbarDefaultDelayBeforeFade="1"
-            android:thumb="@drawable/baseline_stay_current_portrait_24" />
+        <LinearLayout
+            android:layout_width="409dp"
+            android:layout_height="88dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-14dp"
+            tools:layout_editor_absoluteY="87dp">
 
-        <ImageButton
-            android:id="@+id/ibtnMute"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0"
-            android:backgroundTint="#1F58AF"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:srcCompat="@drawable/baseline_volume_off_24" />
+            <SeekBar
+                android:id="@+id/skbVolume"
+                android:layout_width="227dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:backgroundTint="#00BCD4"
+                android:hapticFeedbackEnabled="false"
+                android:max="100"
+                android:progress="50"
+                android:rotationX="0"
+                android:rotationY="0"
+                android:scrollbarDefaultDelayBeforeFade="1"
+                android:thumb="@drawable/baseline_stay_current_portrait_24" />
+
+            <ImageButton
+                android:id="@+id/ibtnMute"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:srcCompat="@drawable/baseline_volume_off_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="409dp"
+            android:layout_height="88dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-14dp"
+            tools:layout_editor_absoluteY="87dp">
+
+            <SeekBar
+                android:id="@+id/skbProgress"
+                android:layout_width="227dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:backgroundTint="#00BCD4"
+                android:hapticFeedbackEnabled="false"
+                android:max="100"
+                android:progress="50"
+                android:rotationX="0"
+                android:rotationY="0"
+                android:scrollbarDefaultDelayBeforeFade="1"
+                android:thumb="@drawable/baseline_stay_current_portrait_24" />
+
+            <ImageButton
+                android:id="@+id/ibtnPlayPause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:srcCompat="@drawable/baseline_pause_24" />
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

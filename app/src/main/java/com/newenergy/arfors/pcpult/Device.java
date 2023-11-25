@@ -3,8 +3,12 @@ package com.newenergy.arfors.pcpult;
 public class Device {
 
     private boolean flMute;
+    private boolean flPause;
     private int volume;
     private int maxVolume;
+
+
+
     private int minVolume;
     private int brightnes;
     private int maxBrightnes;
@@ -43,6 +47,15 @@ public class Device {
         this.volume = volume;
     }
 
+
+    public boolean isFlPause() {
+        return flPause;
+    }
+
+    public void setFlPause(boolean flPause) {
+        this.flPause = flPause;
+    }
+
     public Device(int volume, int maxVolume, int minVolume, int brightnes, int maxBrightnes, int minBrightnes) {
         this.volume = volume;
         this.maxVolume = maxVolume;
@@ -51,6 +64,7 @@ public class Device {
         this.maxBrightnes = maxBrightnes;
         this.minBrightnes = minBrightnes;
         this.flMute = false;
+        this.flPause = false;
 
     }
 
