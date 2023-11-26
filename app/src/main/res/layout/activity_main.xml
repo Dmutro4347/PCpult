@@ -16,6 +16,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_weight="0"
+        android:src="@drawable/baseline_power_settings_new_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck"
@@ -58,7 +59,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0"
+                android:src="@drawable/baseline_volume_off_24"
                 tools:ignore="SpeakableTextPresentCheck"
                 tools:srcCompat="@drawable/baseline_volume_off_24" />
         </LinearLayout>
@@ -92,7 +93,9 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
+                android:src="@drawable/baseline_play_arrow_24"
                 tools:ignore="SpeakableTextPresentCheck"
+                tools:src="@drawable/baseline_play_arrow_24"
                 tools:srcCompat="@drawable/baseline_pause_24" />
         </LinearLayout>
     </LinearLayout>

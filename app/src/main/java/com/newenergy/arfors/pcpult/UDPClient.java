@@ -4,6 +4,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+
 public class UDPClient {
 
     private DatagramSocket socket;
@@ -28,6 +31,21 @@ public class UDPClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @SuppressLint("StaticFieldLeak")
+    public void sendDataAsync(final String message) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                sendData(message);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+
+            }
+        }.execute();
     }
 
     public void close() {

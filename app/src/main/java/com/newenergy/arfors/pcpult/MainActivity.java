@@ -30,26 +30,26 @@ public class MainActivity extends AppCompatActivity {
         ibtnPower = findViewById(R.id.ibtnPower);
         ibtnPlayPause = findViewById(R.id.ibtnPlayPause);
         ibtnMute = findViewById(R.id.ibtnMute);
-        udpClient = new UDPClient("192.168.88.222", 12345);
+        udpClient = new UDPClient("192.168.88.14", 12345);
         skbVolume.setMax(pc1.getMaxVolume());
 //        skbVolume.setMin(pc1.getMinVolume());
         skbVolume.setProgress(pc1.getVolume());
         ibtnMute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast t = Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT);
-                t.setGravity(Gravity.CENTER, 0, 30);
-                t.show();
+                // Toast t = Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT);
+                // t.setGravity(Gravity.CENTER, 0, 30);
+                // t.show();
 
                 if (pc1.isFlMute()) {
                     ibtnMute.setImageResource(R.drawable.baseline_volume_off_24);
                     pc1.setFlMute(false);
-                    udpClient.sendData("mute:0");
+                    udpClient.sendDataAsync("mute:1");
                 }
                 else {
                     ibtnMute.setImageResource(R.drawable.baseline_volume_up_24);
                     pc1.setFlMute(true);
-                    udpClient.sendData("mute:1");
+                    udpClient.sendDataAsync("mute:0");
                 }
             }
         });
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 Log.i("Volume", String.valueOf(progress));
-                udpClient.sendData("volume:" + progress);
+                udpClient.sendDataAsync("volume:" + progress);
             }
 
             @Override

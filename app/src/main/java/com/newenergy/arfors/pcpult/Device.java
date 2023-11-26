@@ -7,13 +7,7 @@ public class Device {
     private int volume;
     private int maxVolume;
 
-
-
     private int minVolume;
-    private int brightnes;
-    private int maxBrightnes;
-    private int minBrightnes;
-
 
     public boolean isFlMute() {
         return flMute;
@@ -60,9 +54,6 @@ public class Device {
         this.volume = volume;
         this.maxVolume = maxVolume;
         this.minVolume = minVolume;
-        this.brightnes = brightnes;
-        this.maxBrightnes = maxBrightnes;
-        this.minBrightnes = minBrightnes;
         this.flMute = false;
         this.flPause = false;
 
