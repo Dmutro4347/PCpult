@@ -8,6 +8,15 @@
     tools:context=".MainActivity">
 
 
+    <SeekBar
+        android:id="@+id/skbMouseX"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <ImageButton
         android:id="@+id/ibtnPower"
         android:layout_width="50dp"
@@ -23,8 +32,9 @@
         tools:srcCompat="@drawable/baseline_power_settings_new_24" />
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="525dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,5 +109,14 @@
                 tools:srcCompat="@drawable/baseline_pause_24" />
         </LinearLayout>
     </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/skbMouseY"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:rotation="270"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/skbMouseX" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

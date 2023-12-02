@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ibtnPower;
     SeekBar skbProgress;
     SeekBar skbVolume;
+
+    SeekBar skbMouseX;
+    SeekBar skbMouseY;
     private UDPClient udpClient;
     Device pc1 = new Device(50, 100, 0, 50, 100, 0);
 
@@ -30,8 +33,12 @@ public class MainActivity extends AppCompatActivity {
         ibtnPower = findViewById(R.id.ibtnPower);
         ibtnPlayPause = findViewById(R.id.ibtnPlayPause);
         ibtnMute = findViewById(R.id.ibtnMute);
-        udpClient = new UDPClient("192.168.88.14", 12345);
+        skbMouseY = findViewById(R.id.skbMouseY);
+        skbMouseX = findViewById(R.id.skbMouseX);
+        udpClient = new UDPClient("192.168.88.42", 12345);
         skbVolume.setMax(pc1.getMaxVolume());
+        skbMouseY.setMax(100);
+        skbMouseX.setMax(100);
 //        skbVolume.setMin(pc1.getMinVolume());
         skbVolume.setProgress(pc1.getVolume());
         ibtnMute.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +88,39 @@ public class MainActivity extends AppCompatActivity {
                     ibtnPlayPause.setImageResource(R.drawable.baseline_pause_24);
                     pc1.setFlPause(true);
                 }
+            }
+        });
+
+        skbMouseX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                udpClient.sendDataAsync("MouseX:"+i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        skbMouseY.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                udpClient.sendDataAsync("MouseY"+i);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
