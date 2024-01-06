@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -20,10 +22,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     ImageButton ibtnPower;
     SeekBar skbProgress;
     SeekBar skbVolume;
-
-    SeekBar skbMouseX;
-    SeekBar skbMouseY;
-
     View vwTouchPad;
     private UDPClient udpClient;
     private GestureDetector gd;
@@ -34,20 +32,21 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        Log.d("Screen", "Width " + width +  " height " + height);
         skbVolume = findViewById(R.id.skbVolume);
         skbProgress = findViewById(R.id.skbProgress);
         ibtnPower = findViewById(R.id.ibtnPower);
         ibtnPlayPause = findViewById(R.id.ibtnPlayPause);
         ibtnMute = findViewById(R.id.ibtnMute);
-        skbMouseY = findViewById(R.id.skbMouseY);
-        skbMouseX = findViewById(R.id.skbMouseX);
         vwTouchPad = findViewById(R.id.vwTouchPad);
         gd = new GestureDetector(this, this);
         gd.setOnDoubleTapListener(this);
-        udpClient = new UDPClient("192.168.88.117", 12345);
+        udpClient = new UDPClient("192.168.88.50", 12345);
         skbVolume.setMax(pc1.getMaxVolume());
-        skbMouseY.setMax(100);
-        skbMouseX.setMax(100);
 //        skbVolume.setMin(pc1.getMinVolume());
         skbVolume.setProgress(pc1.getVolume());
         ibtnMute.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
                 else {
                     ibtnMute.setImageResource(R.drawable.baseline_volume_up_24);
                     pc1.setFlMute(true);
-                    skbVolume.setEnabled(false);
+                    skbVolume.setEnabled(true);
                     udpClient.sendDataAsync("mute:0");
                 }
             }
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.i("Volume", String.valueOf("Test"));
+                Log.i("Volume", "Test");
             }
         });
         ibtnPlayPause.setOnClickListener(new View.OnClickListener() {
@@ -102,39 +101,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             }
         });
 
-        skbMouseX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                udpClient.sendDataAsync("mouse:"+i+","+skbMouseY.getProgress());
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        skbMouseY.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                udpClient.sendDataAsync("mouse:"+skbMouseX.getProgress() + "," + (100-i));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         vwTouchPad.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -144,17 +110,20 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
             int x = (int) (event.getX() / width * 100);
             int y = (int) (event.getY() / hight * 100);
 
-              if (x < 0) {
-                  x = 0;
-              } else if (x > 100){
-                 x = 100;
+//              if (x < 0) {
+//                  x = 0;
+//              } else if (x > 100){
+//                 x = 100;
+//                }
+//              if (y < 0) {
+//                  y = 0;
+//              } else if (y > 100) {
+//                  y = 100;
+//                }
+//              udpClient.sendDataAsync("mouse:" + x + ","+y);
+                if (x >= 0 && y >= 0 && x <= 100 && y <= 100) {
+                    udpClient.sendDataAsync("mouse:" + x + ","+y);
                 }
-              if (y < 0) {
-                  y = 0;
-              } else if (y > 100) {
-                  y = 100;
-                }
-                udpClient.sendDataAsync("mouse:" + x + ","+y);
                 Log.d("X,Y", "X:"+x + " " +"Y:"+y);
 
                 gd.onTouchEvent(event);
@@ -164,13 +133,21 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.d("View_size", "" + vwTouchPad.getWidth());
+    }
+
+    @Override
     public boolean onSingleTapConfirmed(@NonNull MotionEvent motionEvent) {
+        udpClient.sendDataAsync("singletap");
         return false;
     }
 
     @Override
     public boolean onDoubleTap(@NonNull MotionEvent motionEvent) {
         Log.d("Gesture", "duobletap");
+        udpClient.sendDataAsync("doubletap");
         return false;
     }
 
@@ -196,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public boolean onScroll(@NonNull MotionEvent motionEvent, @NonNull MotionEvent motionEvent1, float v, float v1) {
+        udpClient.sendDataAsync("scroll");
         return false;
     }
 

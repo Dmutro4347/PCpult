@@ -8,15 +8,6 @@
     tools:context=".MainActivity">
 
 
-    <SeekBar
-        android:id="@+id/skbMouseX"
-        android:layout_width="0dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
     <ImageButton
         android:id="@+id/ibtnPower"
         android:layout_width="50dp"
@@ -110,31 +101,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="50dp"
-        android:layout_height="300dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skbMouseX">
-
-        <SeekBar
-            android:id="@+id/skbMouseY"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:rotation="270" />
-    </LinearLayout>
-
     <View
         android:id="@+id/vwTouchPad"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="350dp"
+        android:layout_height="210dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/skbMouseX" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
