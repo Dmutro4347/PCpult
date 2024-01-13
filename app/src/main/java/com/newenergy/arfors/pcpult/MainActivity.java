@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
 
     ImageButton ibtnMute;
@@ -53,7 +54,16 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         skbVolume.setMax(pc1.getMaxVolume());
 //        skbVolume.setMin(pc1.getMinVolume());
         skbVolume.setProgress(pc1.getVolume());
+        boolean isWifiEnabled = WifiUtils.isWifiEnabled(getApplicationContext());
+        Toast t = Toast.makeText(MainActivity.this, "" + isWifiEnabled, Toast.LENGTH_SHORT);
+        t.show();
+        if (!isWifiEnabled) {
+            // Включення Wi-Fi
+            WifiUtils.enableWifi(getApplicationContext());
 
+            // Або відкриття екрану налаштувань Wi-Fi
+            // WifiUtils.openWifiSettings(getApplicationContext());
+        }
 
         ibtnPower.setOnClickListener(new View.OnClickListener() {
             @Override
