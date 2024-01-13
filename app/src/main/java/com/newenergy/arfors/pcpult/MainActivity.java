@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
             // Або відкриття екрану налаштувань Wi-Fi
             // WifiUtils.openWifiSettings(getApplicationContext());
+            // test
         }
 
         ibtnPower.setOnClickListener(new View.OnClickListener() {
