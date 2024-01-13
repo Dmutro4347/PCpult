@@ -1,8 +1,10 @@
 package com.newenergy.arfors.pcpult;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     SeekBar skbProgress;
     SeekBar skbVolume;
     View vwTouchPad;
+    AlertDialog.Builder powerMenu;
+    AlertDialog.Builder Test;
     private UDPClient udpClient;
     private GestureDetector gd;
     Device pc1 = new Device(50, 100, 0, 50, 100, 0);
@@ -49,6 +53,47 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         skbVolume.setMax(pc1.getMaxVolume());
 //        skbVolume.setMin(pc1.getMinVolume());
         skbVolume.setProgress(pc1.getVolume());
+
+
+        ibtnPower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                powerMenu = new AlertDialog.Builder(MainActivity.this);
+                powerMenu.setCancelable(true)
+                        .setTitle("powerMenu")
+                        .setMessage("Ви дійсно бажаєте вимкнути комп'ютер?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("reboot", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast t = Toast.makeText(MainActivity.this, "reboot", Toast.LENGTH_SHORT);
+                                t.show();
+                                udpClient.sendDataAsync("reboot");
+                            }
+                        })
+                        .setNeutralButton("PowerOff", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast t = Toast.makeText(MainActivity.this, "poweroff", Toast.LENGTH_SHORT);
+                                t.show();
+                                udpClient.sendDataAsync("poweroff 30");
+                            }
+                        })
+                        .setNegativeButton("Sleep", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast t = Toast.makeText(MainActivity.this, "Sleep", Toast.LENGTH_SHORT);
+                                t.show();
+                                udpClient.sendDataAsync("sleep");
+                            }
+                        });
+                AlertDialog dialog = powerMenu.create();
+                dialog.show();
+            }
+        });
+
+
+
         ibtnMute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
