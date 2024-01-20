@@ -114,14 +114,14 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
                 if (pc1.isFlMute()) {
                     ibtnMute.setImageResource(R.drawable.baseline_volume_off_24);
-                    skbVolume.setEnabled(false);
+                    skbVolume.setEnabled(true);
                     pc1.setFlMute(false);
                     udpClient.sendDataAsync("mute:1");
                 }
                 else {
                     ibtnMute.setImageResource(R.drawable.baseline_volume_up_24);
                     pc1.setFlMute(true);
-                    skbVolume.setEnabled(true);
+                    skbVolume.setEnabled(false);
                     udpClient.sendDataAsync("mute:0");
                 }
             }
@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         vwTouchPad.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
             int width = vwTouchPad.getWidth();
             int hight = vwTouchPad.getHeight();
 
@@ -177,13 +178,16 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 //                  y = 100;
 //                }
 //              udpClient.sendDataAsync("mouse:" + x + ","+y);
-                if (x >= 0 && y >= 0 && x <= 100 && y <= 100) {
-                    udpClient.sendDataAsync("mouse:" + x + ","+y);
-                }
-                Log.d("X,Y", "X:"+x + " " +"Y:"+y);
-
                 gd.onTouchEvent(event);
-              return true;
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (x >= 0 && y >= 0 && x <= 100 && y <= 100) {
+                        udpClient.sendDataAsync("mouse:" + x + "," + y);
+                        Log.d("X,Y", "X:" + x + " " + "Y:" + y);
+                    }
+                }
+
+//                gd.onTouchEvent(event);
+                    return true;
             }
         });
     }
@@ -196,14 +200,14 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public boolean onSingleTapConfirmed(@NonNull MotionEvent motionEvent) {
-        udpClient.sendDataAsync("singletap");
+        udpClient.sendDataAsync("doubletap");
         return false;
     }
 
     @Override
     public boolean onDoubleTap(@NonNull MotionEvent motionEvent) {
         Log.d("Gesture", "duobletap");
-        udpClient.sendDataAsync("doubletap");
+        udpClient.sendDataAsync("singletap");
         return false;
     }
 
